@@ -1,5 +1,5 @@
 
-from utils.file_utils import  get_file_path, load_expense, save_expense, add_expense, view_expense
+from utils.file_utils import  get_file_path
 from methods.Authentication import match
 
 datafile = get_file_path("data","data.json")
@@ -8,11 +8,18 @@ expensefile = get_file_path("model","expense.json")
 print("Welcome to Expense Tracker CLI")
 print("Press 1 for Signup")
 print("Press 2 for Login")
-print("Press 3 for exit")
-choice = int(input("Enter your choice"))
+print("Press 3 for Logout")
+print("Press 4 for Reset Password")
+print("Press 5 for Change Password")
+print("Press 6 for Delete Account")
+print("Press 7 for Update Profile")
+print("Press 8 for View Profile")
+print("Press 9 for exit")
+
+choice = int(input("Enter your choice: "))
 
 match(choice)
-exit()
+
 
 
 # print("1. Add Expense")
