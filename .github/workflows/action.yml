@@ -1,1 +1,8 @@
 name: Expense Tracker CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_requests:
+    branches:
+      - main
