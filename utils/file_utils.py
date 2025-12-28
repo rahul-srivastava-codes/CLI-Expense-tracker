@@ -1,6 +1,8 @@
 import os
 import json
 
+expense_path = "model/expense.json"
+
 # code for folder creation
 def folder_creation(foldername):
   os.makedirs(foldername,exist_ok=True)
@@ -9,9 +11,7 @@ def folder_creation(foldername):
 
 def get_file_path(foldername,filename):
   folder_creation(foldername)
-  datafile = os.path.join(foldername,filename)
-  with open(datafile,"w") as file:
-    json.dump([],file)
+  return os.path.join(foldername,filename) 
 
 
 
@@ -35,11 +35,10 @@ def add_expense(path):
     note = input("Note: ")
 
     expense = {
-        "amount": amount,
-        "category": category,
-        "note": note
+      "amount": amount,
+      "category": category,
+      "note": note
     }
-
     expenses.append(expense)
     save_expense(path, expenses)
 
@@ -55,3 +54,20 @@ def view_expense(path):
     print("\n--- Your Expenses ---")
     for idx, exp in enumerate(expenses, start=1):
         print(f"{idx}. Amount: {exp['amount']} | Category: {exp['category']} | Note: {exp['note']}")
+
+
+def expenses_method(choice):
+    match choice:
+        case 1: 
+            load_expense()
+        case 2:
+            save_expense(expense_path, [])
+        case 3:
+            add_expense(expense_path)
+        case 4:
+            view_expense(expense_path)        
+        case 9:
+            print("Exiting...")
+            exit()
+        case _:
+            print("Invalid option")
