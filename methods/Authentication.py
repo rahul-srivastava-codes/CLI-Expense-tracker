@@ -1,6 +1,6 @@
 import json
 import time 
-
+from utils.file_utils import expenses_method
 datafile = "data/data.json"
 
 def relax():
@@ -8,10 +8,10 @@ def relax():
 
 def signup():
       print("Welcome to Signup")
-      name = input("Enter your name: ")
-      email = input("Enter your email: ")
-      password = input("Enter your password: ")
-      animal = input("Enter your favourite animal: ")
+      name = str(input("Enter your name: "))
+      email = str(input("Enter your email: "))
+      password = str(input("Enter your password: "))
+      animal = str(input("Enter your favourite animal: "))
       data = {
       "name": name,
       "email": email.lower(),
@@ -20,6 +20,7 @@ def signup():
       }    
       with open(datafile, "r") as file:
         content = json.load(file)
+        print((content))
 
       if not isinstance(content, list):
         content = [content]
@@ -32,24 +33,34 @@ def signup():
       print("Signup Successful")
       print("You can now login with your credentials")
       relax()
+      login()
   
 
 def login():
   print("Welcome to Login")
-  email = input("Enter your email: ")
-  password = input("Enter your password: ")
+  email = str(input("Enter your email: "))
+  password = str(input("Enter your password: "))
+  i=1
   with open(datafile, "r") as file:
     data = json.load(file)
-    if data["email"] == email.lower() and data["password"] == password.lower():
-      print("Login Successful")
-    else:
-      print("Invalid Credentials")
+    print((data))
+    for i in range(3):
+      if i>0:
+        for user in data:
+          if(user["email"] == email.lower() and user["password"] == password.lower()):
+            print("Login Successful")
+            relax()
+            option = int(input("Enter what you want to do next:\n1. Manage Expenses\n2. Exit\n"))
+            expenses_method(option)
+            return
+      else:
+        print("Too many failed attempts. Try again later.")
+        # exit()
     relax()
   
 
 
 def logout():
-
   print("Logged out successfully")
   relax()
   exit()
@@ -82,7 +93,7 @@ def change_password():
     with open(datafile,"w") as file:
       json.dump(data,file,indent=3)
     print("Password change successful")
-  pass
+ 
 
 def delete_account():
   print("Welcome to Delete Account")
@@ -100,7 +111,7 @@ def delete_account():
       print("Account deleted successfully")
     else:
       print("Account deletion cancelled")
-  pass
+  
 
 def update_profile():
   print("Welcome to Update Profile")
@@ -139,7 +150,7 @@ def match(num):
   match num:
     case 1:      
       signup()      
-      login()
+      login()      
     case 2:      
       login()
     case 3:
