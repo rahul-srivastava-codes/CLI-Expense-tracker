@@ -17,10 +17,11 @@ def get_file_path(foldername,filename):
 
 def load_expense():
   print("Loading expenses from expense.json")
-  with open("model/expense.json","r") as file:
+  with open(expense_path,"r") as file:
     data = json.load(file)
     print(data)
   print("Expenses loaded successfully")
+  return data
   
 
 def save_expense(path, expenses):
@@ -34,6 +35,10 @@ def add_expense(path):
     category = input("Category: ")
     note = input("Note: ")
 
+    if not expenses:
+        print("No expenses found.")
+        return
+    
     expense = {
       "amount": amount,
       "category": category,
@@ -55,7 +60,8 @@ def view_expense(path):
     for idx, exp in enumerate(expenses, start=1):
         print(f"{idx}. Amount: {exp['amount']} | Category: {exp['category']} | Note: {exp['note']}")
 
-
+def filter_expenses_by_category(expenses, category):
+    return [exp for exp in expenses if exp['category'].lower() == category.lower()]
 def expenses_method(choice):
     match choice:
         case 1: 
