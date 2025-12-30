@@ -22,5 +22,11 @@
       "email": "5",
       "password": "5",
       "animal": "5"
+   },
+   {
+      "name": "6",
+      "email": "6",
+      "password": "6",
+      "animal": "6"
    }
 ]
